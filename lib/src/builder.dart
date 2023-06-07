@@ -7,6 +7,10 @@ import 'package:source_gen/source_gen.dart';
 
 import 'annotation.dart';
 
+Builder collectionBuilder(BuilderOptions options) {
+  return CollectionBuilder();
+}
+
 class CollectionBuilder implements Builder {
   const CollectionBuilder();
 

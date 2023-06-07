@@ -1,6 +1,6 @@
 builders:
   my_builder:
-    import: "package:collection_gen/collection_gen.dart"
+    import: "package:collection_gen/src/builder.dart"
     builder_factories: ["collectionBuilder"]
     build_extensions:
       "$lib$": [".g.dart"]
