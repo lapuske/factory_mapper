@@ -26,26 +26,33 @@ class CollectionBuilder implements Builder {
     final List<AssetId> imports = [];
 
     await for (var asset in assets) {
-      // if (!await resolver.isLibrary(buildStep.inputId)) return;
+      if (await buildStep.resolver.isLibrary(asset)) {
+        final library = await buildStep.resolver.libraryFor(asset);
+        final reader = LibraryReader(library);
 
-      final library = await buildStep.resolver.libraryFor(asset);
-      final reader = LibraryReader(library);
+        Iterable<AnnotatedElement> annotations =
+            reader.annotatedWith(TypeChecker.fromRuntime(CollectionElement));
+        if (annotations.isNotEmpty) {
+          imports.add(asset);
+        }
 
-      Iterable<AnnotatedElement> annotations =
-          reader.annotatedWith(TypeChecker.fromRuntime(CollectionElement));
-      if (annotations.isNotEmpty) {
-        imports.add(asset);
-      }
-
-      for (var a in annotations) {
-        final String collection = a.annotation.read('collection').stringValue;
-        final List<AnnotatedElement>? list = collections[collection];
-        if (list != null) {
-          list.add(a);
-        } else {
-          collections[collection] = [a];
+        for (var a in annotations) {
+          final String collection = a.annotation.read('collection').stringValue;
+          final List<AnnotatedElement>? list = collections[collection];
+          if (list != null) {
+            list.add(a);
+          } else {
+            collections[collection] = [a];
+          }
         }
       }
+    }
+
+    print('COLLECTIONS: ${collections.keys}');
+
+    if (collections.isEmpty) {
+      // Nothing to generate.
+      return;
     }
 
     final StringBuffer buffer = StringBuffer();
@@ -91,15 +98,5 @@ class CollectionBuilder implements Builder {
     final outputId =
         AssetId(buildStep.inputId.package, 'lib/collection.g.dart');
     await buildStep.writeAsString(outputId, buffer.toString());
-
-    // final outputId =
-    //     AssetId(buildStep.inputId.package, 'lib/collection.g.dart');
-    // await buildStep.writeAsString(
-    //   outputId,
-    //   'class Pubspec {\n'
-    //   '  static const name = \'${pubspec['name']}\';\n'
-    //   '  static const version = \'${pubspec['version']}\';\n'
-    //   '}\n',
-    // );
   }
 }
