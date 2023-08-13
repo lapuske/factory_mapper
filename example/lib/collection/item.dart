@@ -1,23 +1,23 @@
-import 'package:collection_gen/collection_gen.dart';
+import 'package:factory_mapper/factory_mapper.dart';
 
 import '/model/item.dart';
 
-@CollectionElement('Items')
+@FactoryElement('Items')
 class MilkItem extends Item {
   const MilkItem(super.count);
 }
 
-@CollectionElement('Items')
+@FactoryElement('Items')
 class SwordItem extends Item {
   const SwordItem(super.count);
 }
 
-@CollectionElement('Items')
+@FactoryElement('Items')
 class AppleItem extends Item {
   const AppleItem(super.count);
 }
 
-@CollectionElement('Items')
+@FactoryElement('Items')
 class AnimeShirtItem extends Item {
   const AnimeShirtItem(super.count);
 }

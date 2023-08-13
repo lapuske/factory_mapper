@@ -1,11 +1,11 @@
-`collection_gen` is a package generating `Map`s of elements annotated with `CollectionElement` annotation.
+`factory_mapper` is a package generating `Map`s of elements annotated with `FactoryElement` annotation.
 
 
 
 
 ## Getting started
 
-To start, annotate the classes with `CollectionElement` and run `build_runner` to build the output. It generates the `collection.g.dart` file at the root of your `lib/` directory.
+To start, annotate the classes with `FactoryElement` and run `build_runner` to build the output. It generates the `collection.g.dart` file at the root of your `lib/` directory.
 
 
 
@@ -14,20 +14,20 @@ To start, annotate the classes with `CollectionElement` and run `build_runner` t
 
 Let's say we have the following collection:
 ```dart
-import 'package:collection_gen/collection_gen.dart';
+import 'package:factory_mapper/factory_mapper.dart';
 
 import '/model/character.dart';
 import '/model/item.dart';
 
-@CollectionElement('Items')
+@FactoryElement('Items')
 class MilkItem extends Item {
   const MilkItem(super.count);
 }
 
-@CollectionElement('Characters')
+@FactoryElement('Characters')
 class Alice extends Character {}
 
-@CollectionElement('Characters')
+@FactoryElement('Characters')
 class Bob extends Character {}
 ```
 

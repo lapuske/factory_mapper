@@ -7,12 +7,12 @@ import 'package:source_gen/source_gen.dart';
 
 import 'annotation.dart';
 
-Builder collectionBuilder(BuilderOptions options) {
-  return CollectionBuilder();
+Builder factoryBuilder(BuilderOptions options) {
+  return FactoryBuilder();
 }
 
-class CollectionBuilder implements Builder {
-  const CollectionBuilder();
+class FactoryBuilder implements Builder {
+  const FactoryBuilder();
 
   @override
   Map<String, List<String>> get buildExtensions => {
@@ -35,7 +35,7 @@ class CollectionBuilder implements Builder {
         final reader = LibraryReader(library);
 
         Iterable<AnnotatedElement> annotations =
-            reader.annotatedWith(TypeChecker.fromRuntime(CollectionElement));
+            reader.annotatedWith(TypeChecker.fromRuntime(FactoryElement));
         if (annotations.isNotEmpty) {
           imports.add(asset);
         }
@@ -85,8 +85,14 @@ class CollectionBuilder implements Builder {
         if (ctor == null) {
           code.write('() => ${e.element.name}()');
         } else {
+          String name = e.element.displayName;
+          if (ctor.isConst == true && ctor.parameters.isEmpty) {
+            name = 'const $name';
+          }
+
           code.write(
-              '(${ctor.parameters.join(',')}) => ${e.element.name}(${ctor.parameters.map((e) => e.name).join(',')})');
+            '(${ctor.parameters.join(',')}) => $name(${ctor.parameters.map((e) => e.name).join(',')})',
+          );
         }
 
         code.write(',\n');

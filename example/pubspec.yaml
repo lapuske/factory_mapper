@@ -9,7 +9,7 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
-  collection_gen:
+  factory_mapper:
     path: ..
 
 dev_dependencies:

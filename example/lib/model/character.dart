@@ -1,1 +1,3 @@
-abstract class Character {}
+abstract class Character {
+  const Character();
+}

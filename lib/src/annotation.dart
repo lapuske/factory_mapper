@@ -1,4 +1,4 @@
-class CollectionElement {
-  const CollectionElement(this.collection);
+class FactoryElement {
+  const FactoryElement(this.collection);
   final String collection;
 }

@@ -3,7 +3,7 @@ import '/collection/item.dart';
 
 class Characters {
   static final factories = {
-    'Alice': () => Alice(),
+    'Alice': () => const Alice(),
     'Bob': () => Bob(),
     'Charlie': () => Charlie(),
   };

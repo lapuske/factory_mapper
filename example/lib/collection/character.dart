@@ -1,12 +1,14 @@
-import 'package:collection_gen/collection_gen.dart';
+import 'package:factory_mapper/factory_mapper.dart';
 
 import '/model/character.dart';
 
-@CollectionElement('Characters')
-class Alice extends Character {}
+@FactoryElement('Characters')
+class Alice extends Character {
+  const Alice();
+}
 
-@CollectionElement('Characters')
+@FactoryElement('Characters')
 class Bob extends Character {}
 
-@CollectionElement('Characters')
+@FactoryElement('Characters')
 class Charlie extends Character {}

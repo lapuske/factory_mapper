@@ -1,7 +1,7 @@
 builders:
-  my_builder:
-    import: "package:collection_gen/src/builder.dart"
-    builder_factories: ["collectionBuilder"]
+  collection_builder:
+    import: "package:factory_mapper/src/builder.dart"
+    builder_factories: ["factoryBuilder"]
     build_extensions:
       "$lib$": [".g.dart"]
     auto_apply: dependents
