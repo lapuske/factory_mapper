@@ -35,7 +35,7 @@ class FactoryBuilder implements Builder {
         final reader = LibraryReader(library);
 
         Iterable<AnnotatedElement> annotations =
-            reader.annotatedWith(TypeChecker.fromRuntime(FactoryElement));
+            reader.annotatedWith(TypeChecker.typeNamed(FactoryElement));
         if (annotations.isNotEmpty) {
           imports.add(asset);
         }
@@ -86,12 +86,12 @@ class FactoryBuilder implements Builder {
           code.write('() => ${e.element.name}()');
         } else {
           String name = e.element.displayName;
-          if (ctor.isConst == true && ctor.parameters.isEmpty) {
+          if (ctor.isConst == true && ctor.formalParameters.isEmpty) {
             name = 'const $name';
           }
 
           code.write(
-            '(${ctor.parameters.join(',')}) => $name(${ctor.parameters.map((e) => e.name).join(',')})',
+            '(${ctor.formalParameters.join(',')}) => $name(${ctor.formalParameters.map((e) => e.name).join(',')})',
           );
         }
 
